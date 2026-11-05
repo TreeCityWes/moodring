@@ -1,0 +1,19 @@
+# systemd user unit. Assumes the repo is cloned to ~/moodring; edit the paths if not.
+# Install: cp deploy/moodring.service ~/.config/systemd/user/ && systemctl --user enable --now moodring
+# (run `loginctl enable-linger $USER` once so it keeps running after you log out)
+[Unit]
+Description=Moodring - Mood Ring signal bot for Hyperliquid
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/moodring
+ExecStart=/usr/bin/env node %h/moodring/src/bot.js
+Restart=always
+RestartSec=15
+UMask=0077
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=default.target

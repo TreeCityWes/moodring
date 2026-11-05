@@ -1,0 +1,9 @@
+# Runs from moodring-watchdog.timer. Assumes the repo is cloned to ~/moodring; edit the paths if not.
+[Unit]
+Description=Moodring watchdog (alerts if the bot stops cycling)
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/moodring
+ExecStart=/usr/bin/env node %h/moodring/src/watchdog.js
+UMask=0077
